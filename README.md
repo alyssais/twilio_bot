@@ -1,8 +1,8 @@
 # TwilioBot
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/twilio_bot`. To experiment with that code, run `bin/console` for an interactive prompt.
+Don't worry about writing a web server — integrate with Twilio using a plain Ruby class!
 
-TODO: Delete this and the text above, and describe your gem
+TwilioBot maps web server requests to Ruby methods, and provides a Ruby-like way to respond with TwiML.
 
 ## Installation
 
@@ -22,7 +22,35 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Write a Ruby class like this:
+
+```ruby
+require "twilio_bot"
+
+class MyBot < TwilioBot
+  account_sid "MY TWILIO ACCOUNT SID"
+  auth_token "MY TWILIO AUTH TOKEN"
+
+  def start
+    twilio.say "hello world!"
+    twilio.redirect :redirected
+  end
+
+  def redirected
+    twilio.say "redirected!"
+  end
+end
+```
+
+Then start the server like this:
+
+```ruby
+MyBot.run
+```
+
+`POST /start` to call `start` in your bot class.
+
+`TwilioBot` is a subclass of `Sinatra::Base`, so you can use any normal Sinatra stuff with it.
 
 ## Development
 
@@ -32,7 +60,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/twilio_bot/fork )
+1. Fork it ( https://github.com/penman/twilio_bot/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
