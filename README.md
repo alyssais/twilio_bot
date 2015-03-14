@@ -32,7 +32,7 @@ class MyBot < TwilioBot
   auth_token "MY TWILIO AUTH TOKEN"
 
   def start
-    twilio.say "hello world!"
+    twilio.say "hello world!", voice: :woman
     twilio.redirect :redirected
   end
 
@@ -41,6 +41,8 @@ class MyBot < TwilioBot
   end
 end
 ```
+
+Calling methods on `twilio` generate TwiML. See [Twilio's documentation](https://www.twilio.com/docs/api/twiml) for more information.
 
 Then start the server like this:
 
